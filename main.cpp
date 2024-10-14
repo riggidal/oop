@@ -163,14 +163,14 @@ int main() {
       select = -1;
     }
 
-    if (select > 0 && select < menu_count)
+    if (select >= 0 && select < menu_count)
       get<1>(menu[select])(flats, num_flats);
     else
       cout << "Выход из приложения";
 
     cout << endl;
 
-  } while (select > 0 && select < menu_count);
+  } while (select >= 0 && select < menu_count);
 
   // Освобождение памяти
   delete[] flats;
