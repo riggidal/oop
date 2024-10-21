@@ -51,6 +51,8 @@ public:
 
   // Удаление по вводу из консоли
   void removeFromConsole();
+
+  void operator +=(const Flat&);
 };
 
 #endif // FLAT_COLLECTION_H

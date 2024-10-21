@@ -27,7 +27,7 @@ void FlatCollection::flatsFromConsole() {
     Flat new_flat;
     new_flat.inputFromConsole();
 
-    add(new_flat);
+   *this += new_flat;
   }
 }
 
@@ -65,9 +65,9 @@ void FlatCollection::flatsFromFile() {
   // Ввод данных через разделитель ;
   for (int i = 0; i < count_element; ++i) {
     Flat new_flat;
-    new_flat.readFromFile(file);
+    file >> new_flat;
 
-    add(new_flat);
+   *this += new_flat;
   }
 
   file.close();
@@ -77,7 +77,7 @@ void FlatCollection::flatsFromFile() {
 void FlatCollection::display() const {
   cout << "\nДанные всех квартир:\n";
   for (int i = 0; i < count_num; ++i) {
-    flats[i].display();
+    cout << flats[i];
   }
 }
 
@@ -97,7 +97,7 @@ void FlatCollection::writeToFile() const {
 
   file << count_num << endl;
   for (int i = 0; i < count_num; ++i) {
-    flats[i].writeToFile(file);
+    file << flats[i];
   }
 }
 
@@ -106,7 +106,7 @@ void FlatCollection::displayAllFlatsTopFloor() {
   cout << "\nКвартиры на верхнем этаже:\n";
   for (int i = 0; i < count_num; ++i) {
     if (flats[i].isTopFloor()) {
-      flats[i].display();
+      cout << flats[i];
     }
   }
 }
@@ -186,4 +186,9 @@ void FlatCollection::remove(int index) {
 
   delete[] flats;
   flats = new_flats;
+}
+
+
+void FlatCollection::operator +=(const Flat& other){
+  add(other);
 }
