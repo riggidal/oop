@@ -89,11 +89,13 @@ void FlatCollection::writeToFile() const {
   cout << "Введите имя файла: ";
   cin >> filename;
 
+
   ofstream file(filename, ios::app);
   if (!file) {
     cerr << "Ошибка открытия файла: " << filename << endl;
   }
 
+  file << count_num << endl;
   for (int i = 0; i < count_num; ++i) {
     flats[i].writeToFile(file);
   }
@@ -171,12 +173,17 @@ void FlatCollection::remove(int index) {
 
   Flat *new_flats = new Flat[count_max];
 
-  for (int i = 0; i < count_num; i++) {
+  for (int i = 0, j = 0 ; i < count_num; i++) {
     if (i == index) {
-      i--;
-      count_num--;
+      continue;
     }
 
-    new_flats[i] = flats[i];
+    new_flats[j] = flats[i];
+    j++;
   }
+  
+  count_num--;
+
+  delete[] flats;
+  flats = new_flats;
 }
