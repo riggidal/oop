@@ -45,6 +45,8 @@ int main() {
                  std::bind(&FlatCollection::calculateTotalAreaByInput, &flats)),
       make_tuple("Remove element by index",
                  std::bind(&FlatCollection::removeFromConsole, &flats)),
+      make_tuple("Diff two elements",
+                 std::bind(&FlatCollection::diffByInput, &flats)),
       make_tuple("Clean all elements",
                  std::bind(&FlatCollection::clean, &flats)),
       make_tuple("Output flats to file",

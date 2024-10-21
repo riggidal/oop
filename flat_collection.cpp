@@ -25,7 +25,7 @@ void FlatCollection::flatsFromConsole() {
     cout << endl;
 
     Flat new_flat;
-    new_flat.inputFromConsole();
+    cin >> new_flat;
 
    *this += new_flat;
   }
@@ -191,4 +191,29 @@ void FlatCollection::remove(int index) {
 
 void FlatCollection::operator +=(const Flat& other){
   add(other);
+}
+
+void FlatCollection::diffByInput(){
+  int ind1, ind2;
+  cout << "Введите индекс элемента: ";
+  cin >> ind1;
+  cout << endl;
+
+  cout << "Введите индекс элемента (второго): ";
+  cin >> ind2;
+  cout << endl;
+
+  diff(ind1, ind2);
+}
+
+void FlatCollection::diff(int first, int second) {
+  if(first < 0 || second < 0 || first >= count_max || second >= count_max){
+    cout << "Выход за пределы массива!!!";
+    return;
+  }
+  if (first == second) {
+    cout << "Они равны" << endl;
+  }else {
+    cout << "Они не равны" << endl;
+  }
 }

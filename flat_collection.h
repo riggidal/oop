@@ -53,6 +53,11 @@ public:
   void removeFromConsole();
 
   void operator +=(const Flat&);
+
+  // Сравнение двух элементов в коллекции
+  void diff(int,int);
+
+  void diffByInput();
 };
 
 #endif // FLAT_COLLECTION_H
