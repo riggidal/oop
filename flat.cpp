@@ -62,3 +62,66 @@ void Flat::writeToFile(ofstream &out) const {
   out << rooms << ";" << total_area << ";" << living_area << ";" << balconies
       << ";" << floor << ";" << storeys << ";" << district << endl;
 }
+
+
+bool Flat::operator ==(Flat other) {
+  if(rooms == other.rooms && total_area == other.total_area 
+      && living_area == other.living_area && balconies == other.balconies 
+      && floor == other.floor && storeys == other.storeys && district == other.district ) {
+    return true;
+  }
+
+  return false;
+}
+
+ostream& operator<<(ostream& stream, const Flat& flat) {
+  stream << "Комнат: " << flat.rooms << ", Общая площадь: " << flat.total_area << " кв.м"
+       << ", Жилая площадь: " << flat.living_area << " кв.м"
+       << ", Балконов: " << flat.balconies << ", Этаж: " << flat.floor << "/" << flat.storeys
+       << ", Район: " << flat.district << endl;
+
+  return stream;
+}
+istream& operator>>(istream& stream, Flat& flat) {
+  stream >> flat.rooms;
+  stream >> flat.total_area;
+  stream >> flat.living_area;
+  stream >> flat.balconies;
+  stream >> flat.floor;
+  stream >> flat.storeys;
+  getline(stream, flat.district);
+
+  return stream;
+}
+ofstream& operator<<(ofstream& stream, const Flat& flat) {
+  stream << flat.rooms << ";" << flat.total_area << ";" << flat.living_area << ";" << flat.balconies
+      << ";" << flat.floor << ";" << flat.storeys << ";" << flat.district << endl;
+
+
+  return stream;
+}
+ifstream& operator>>(ifstream& stream, Flat& flat) {
+  string temp;
+
+  getline(stream, temp, ';');
+  flat.rooms = atoi(temp.c_str());
+
+  getline(stream, temp, ';');
+  flat.total_area = atof(temp.c_str());
+
+  getline(stream, temp, ';');
+  flat.living_area = atof(temp.c_str());
+
+  getline(stream, temp, ';');
+  flat.balconies = atoi(temp.c_str());
+
+  getline(stream, temp, ';');
+  flat.floor = atoi(temp.c_str());
+
+  getline(stream, temp, ';');
+  flat.storeys = atoi(temp.c_str());
+
+  getline(stream, flat.district);
+
+  return stream;
+}

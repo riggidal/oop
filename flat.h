@@ -43,6 +43,12 @@ public:
 
   // Условие для квартир на верхнем этаже в домах с >= 5 этажами
   bool isTopFloor() const { return floor == storeys && storeys >= 5; }
+
+  bool operator ==(Flat);
+  friend ostream& operator<<(ostream&, const Flat&);
+  friend istream& operator>>(istream&, Flat&);
+  friend ofstream& operator<<(ofstream&, const Flat&);
+  friend ifstream& operator>>(ifstream&, Flat&);
 };
 
 #endif // FLAT_H
