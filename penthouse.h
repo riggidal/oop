@@ -7,7 +7,7 @@
 #include "flat.h"
 using namespace std;
 
-class Penthouse : Flat {
+class Penthouse : public Flat {
 private:
   float terrace_area; // Площадь террасы
   bool has_private_elevator; // Наличие частного лифта
@@ -19,17 +19,20 @@ public:
   // Конструктор с параметрами
   Penthouse(float terrace_area, bool has_private_elevator);
 
+  // Конструктор 
+  Penthouse(Flat&);
+
   // Метод для ввода данных с клавиатуры
-  void inputFromConsole();
+  virtual void inputFromConsole();
 
   // Метод для вывода данных на экран
-  void display() const;
+  virtual void display() const;
 
   // Метод для записи данных в файл
-  void writeToFile(ofstream &out) const;
+  virtual void writeToFile(ofstream &out) const;
 
   // Метод для чтения данных из файла
-  void readFromFile(ifstream &in);
+  virtual void readFromFile(ifstream &in);
 
   bool operator ==(Penthouse);
   friend ostream& operator<<(ostream&, const Penthouse&);

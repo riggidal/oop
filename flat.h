@@ -21,16 +21,16 @@ public:
   Flat();
 
   // Метод для ввода данных с клавиатуры
-  void inputFromConsole();
+  virtual void inputFromConsole();
 
   // Метод для чтения данных из файла
-  void readFromFile(ifstream &in);
+  virtual void readFromFile(ifstream &in);
 
   // Метод для вывода данных на экран
-  void display() const;
+  virtual void display() const;
 
   // Метод для записи данных в текстовый файл
-  void writeToFile(ofstream &out) const;
+  virtual void writeToFile(ofstream &out) const;
 
   // Геттеры
   int getRooms() const { return rooms; }
@@ -42,7 +42,7 @@ public:
   string getDistrict() const { return district; }
 
   // Условие для квартир на верхнем этаже в домах с >= 5 этажами
-  bool isTopFloor() const { return floor == storeys && storeys >= 5; }
+  virtual bool isTopFloor() const { return floor == storeys && storeys >= 5; }
 
   bool operator ==(Flat);
   friend ostream& operator<<(ostream&, const Flat&);

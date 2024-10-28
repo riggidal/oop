@@ -2,6 +2,7 @@
 #define FLAT_COLLECTION_H
 
 #include "flat.h"
+#include "penthouse.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -11,7 +12,7 @@ class FlatCollection {
 private:
   int count_num; // Количество квартир
   int count_max; // Максимальное хранение элементов
-  Flat *flats;   // Хранение элементов
+  Flat **flats;   // Хранение элементов
 
   void increseMaxElemehts();
 
@@ -41,7 +42,7 @@ public:
   void calculateTotalAreaByInput();
 
   // Добавить квартиру в коллекцию
-  void add(Flat);
+  void add(Flat*);
 
   // Удаление по индексу
   void remove(int);
@@ -52,7 +53,7 @@ public:
   // Удаление по вводу из консоли
   void removeFromConsole();
 
-  void operator +=(const Flat&);
+  void operator +=(Flat*);
 
   // Сравнение двух элементов в коллекции
   void diff(int,int);

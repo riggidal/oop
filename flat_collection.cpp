@@ -4,7 +4,7 @@
 
 // Конструктор по умолчанию
 FlatCollection::FlatCollection()
-    : count_num(0), count_max(2), flats(new Flat[count_max]) {}
+  : count_num(0), count_max(2), flats(new Flat*[count_max]) {}
 
 FlatCollection::~FlatCollection() {
   count_num = 0;
@@ -24,10 +24,31 @@ void FlatCollection::flatsFromConsole() {
   for (int i = 0; i < count_elements; ++i) {
     cout << endl;
 
-    Flat new_flat;
-    cin >> new_flat;
+    int type;
+    cout << "Введите тип (1 - обычная квартира, 2 - пентхаус квартира)" << endl;
+    cin >> type;
 
-   *this += new_flat;
+    Flat* new_flat = nullptr; // Указатель на базовый тип Flat
+
+    if(type == 1) {
+      Flat flat;
+      cin >> flat;
+      new_flat = &flat;
+    }
+
+    if (type == 2) {
+      Penthouse penthouse;
+      cin >> penthouse;
+      new_flat = &penthouse;
+    }
+
+    if (type != 1 && type != 2) {
+      cout << "Неккорентный ввод типа (пропуск квартиры)";
+      i--;
+      continue;
+    }
+
+    *this += new_flat;
   }
 }
 
@@ -41,6 +62,25 @@ void FlatCollection::removeFromConsole() {
   cin >> index;
 
   remove(index);
+}
+
+int getCountSymbol(ifstream& stream, char symbol) {
+  int count = 0;
+
+  streampos cpos = stream.tellg();
+
+  string temp;
+  getline(stream, temp);
+
+  for (char ch : temp) {
+    if (ch == symbol) {
+      ++count;
+    }
+  }
+
+  stream.seekg(cpos);
+
+  return count;
 }
 
 // Метод для чтения данных из файла
@@ -64,10 +104,28 @@ void FlatCollection::flatsFromFile() {
 
   // Ввод данных через разделитель ;
   for (int i = 0; i < count_element; ++i) {
-    Flat new_flat;
-    file >> new_flat;
+    int count_delimiter = getCountSymbol(file, ';');
 
-   *this += new_flat;
+    Flat* new_flat = nullptr;
+
+    if(count_delimiter == 6) {
+      Flat *flat = new Flat();
+      flat -> readFromFile(file);
+      new_flat = flat;
+    }
+
+    if (count_delimiter == 8) {
+      Penthouse *penthouse = new Penthouse();
+      penthouse -> readFromFile(file);
+      new_flat = penthouse;
+    }
+
+    if (count_delimiter != 6 && count_delimiter != 8) {
+      cout << "Неккорентный ввод типа (пропуск квартиры)" << endl;
+      continue;
+    }
+
+    *this += new_flat;
   }
 
   file.close();
@@ -77,7 +135,7 @@ void FlatCollection::flatsFromFile() {
 void FlatCollection::display() const {
   cout << "\nДанные всех квартир:\n";
   for (int i = 0; i < count_num; ++i) {
-    cout << flats[i];
+    flats[i] -> display();
   }
 }
 
@@ -105,8 +163,8 @@ void FlatCollection::writeToFile() const {
 void FlatCollection::displayAllFlatsTopFloor() {
   cout << "\nКвартиры на верхнем этаже:\n";
   for (int i = 0; i < count_num; ++i) {
-    if (flats[i].isTopFloor()) {
-      cout << flats[i];
+    if (flats[i] -> isTopFloor()) {
+      cout << *flats[i];
     }
   }
 }
@@ -123,13 +181,13 @@ void FlatCollection::calculateTotalAreaByInput() {
 
     float total_area = 0;
     for (int i = 0; i < count_num; ++i) {
-      if (flats[i].getDistrict() == district) {
-        total_area += flats[i].getTotalArea();
+      if (flats[i] -> getDistrict() == district) {
+        total_area += flats[i] -> getTotalArea();
       }
     }
 
     cout << "Общая площадь квартир в районе " << district << ": " << total_area
-         << " кв.м\n";
+      << " кв.м\n";
 
     cout << "Хотите продолжить? (1/0): ";
     if (!(cin >> continue_input)) {
@@ -144,23 +202,20 @@ void FlatCollection::clean() {
   count_max = 2;
   delete[] flats;
 
-  flats = new Flat[count_max];
+  flats = new Flat*[count_max];
 }
 
 void FlatCollection::increseMaxElemehts() {
   int new_count_max = count_max * 2;
-  Flat *new_flats = new Flat[new_count_max];
-
-  for (int i = 0; i < count_num; i++) {
-    new_flats[i] = flats[i];
-  }
+  Flat **new_flats = new Flat*[new_count_max];
 
   delete[] flats;
+
   flats = new_flats;
   count_max = new_count_max;
 }
 
-void FlatCollection::add(Flat flat) {
+void FlatCollection::add(Flat *flat) {
   if ((count_num + 1) == count_max) {
     increseMaxElemehts();
   }
@@ -171,7 +226,7 @@ void FlatCollection::add(Flat flat) {
 
 void FlatCollection::remove(int index) {
 
-  Flat *new_flats = new Flat[count_max];
+  Flat **new_flats = new Flat*[count_max];
 
   for (int i = 0, j = 0 ; i < count_num; i++) {
     if (i == index) {
@@ -181,7 +236,7 @@ void FlatCollection::remove(int index) {
     new_flats[j] = flats[i];
     j++;
   }
-  
+
   count_num--;
 
   delete[] flats;
@@ -189,7 +244,7 @@ void FlatCollection::remove(int index) {
 }
 
 
-void FlatCollection::operator +=(const Flat& other){
+void FlatCollection::operator +=(Flat* other){
   add(other);
 }
 

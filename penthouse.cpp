@@ -8,6 +8,9 @@ Penthouse::Penthouse(float terrace_area, bool has_private_elevator)
   : Flat(),
   terrace_area(terrace_area), has_private_elevator(has_private_elevator) {}
 
+// Конструктор по умолчанию
+Penthouse::Penthouse(Flat& flat) : Flat(flat) {};
+
 // Метод для ввода данных с клавиатуры
 void Penthouse::inputFromConsole() {
   Flat::inputFromConsole();
@@ -44,7 +47,7 @@ void Penthouse::readFromFile(ifstream &in) {
   getline(in, temp, ';');
   terrace_area = atof(temp.c_str());
 
-  getline(in, temp, ';');
+  getline(in, temp);
   has_private_elevator = atoi(temp.c_str());
 }
 
@@ -80,7 +83,7 @@ ostream& operator<<(ostream& stream, const Penthouse& penthouse) {
     << ", Жилая площадь: " << penthouse.living_area << " кв.м"
     << ", Балконов: " << penthouse.balconies << ", Этаж: " << penthouse.floor << "/" << penthouse.storeys
     << ", Район: " << penthouse.district << ", Площадь террасы: " << penthouse.terrace_area 
-    << ", Частный лифт: " << penthouse.has_private_elevator << endl;
+    << ", Частный лифт: " << (penthouse.has_private_elevator ? "Имеется" : "Отстутствует") << endl;
 
   return stream;
 }
@@ -131,7 +134,7 @@ ifstream& operator>>(ifstream& stream, Penthouse& penthouse) {
   getline(stream, temp, ';');
   penthouse.terrace_area = atof(temp.c_str());
 
-  getline(stream, temp, ';');
+  getline(stream, temp);
   penthouse.has_private_elevator = atoi(temp.c_str());
 
   return stream;
