@@ -3,7 +3,7 @@ CC = g++
 CFLAGS = -c -Wall -g
 
 # Исходные файлы
-SOURCES = main.cpp flat.cpp flat_collection.cpp
+SOURCES = main.cpp flat.cpp flat_collection.cpp penthouse.cpp
 
 # Объектные файлы
 OBJECTS = $(SOURCES:.cpp=.o)
