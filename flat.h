@@ -7,7 +7,7 @@
 using namespace std;
 
 class Flat {
-private:
+protected:
   int rooms;         // Количество комнат
   float total_area;  // Общая площадь
   float living_area; // Жилая площадь
