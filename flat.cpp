@@ -46,7 +46,7 @@ void Flat::readFromFile(ifstream &in) {
   getline(in, temp, ';');
   storeys = atoi(temp.c_str());
 
-  getline(in, district);
+  getline(in, district, ';');
 }
 
 // Метод для вывода данных на экран

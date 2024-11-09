@@ -108,15 +108,18 @@ void FlatCollection::flatsFromFile() {
 
     Flat* new_flat = nullptr;
 
-    if(count_delimiter == 6) {
-      Flat *flat = new Flat();
-      flat -> readFromFile(file);
-      new_flat = flat;
-    }
+    int type = 0;
+    string temp;
+    getline(file, temp, ';');
 
+    // Идея заключается в том чтобы в конеце или в начале указывать тип для квартиры
+    // 1 - простая квартира
+    // 2 и так далее это производный класс
+    // 2 - пентхаус
+    // 3 - коммерция
+    // 4 - студия
     if (count_delimiter == 8) {
       Penthouse *penthouse = new Penthouse();
-      penthouse -> readFromFile(file);
       new_flat = penthouse;
     }
 
@@ -125,6 +128,7 @@ void FlatCollection::flatsFromFile() {
       continue;
     }
 
+    new_flat -> readFromFile(file);
     *this += new_flat;
   }
 
