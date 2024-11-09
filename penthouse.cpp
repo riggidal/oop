@@ -57,7 +57,7 @@ void Penthouse::display() const {
     << ", Жилая площадь: " << living_area << " кв.м"
     << ", Балконов: " << balconies << ", Этаж: " << floor << "/" << storeys
     << ", Район: " << district << ", Площадь террасы: " << terrace_area 
-    << ", Частный лифт: " << has_private_elevator << endl;
+    << ", Частный лифт: " << (has_private_elevator ? "Имеется" : "Отсутствует") << endl;
 }
 
 // Метод для записи данных в текстовый файл

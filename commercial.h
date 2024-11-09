@@ -1,5 +1,5 @@
-#ifndef FLAT_PENTHOUSE
-#define FLAT_PENTHOUSE
+#ifndef FLAT_COMMERCIAL
+#define FLAT_COMMERCIAL
 
 #include <fstream>
 #include <iostream>
@@ -7,20 +7,17 @@
 #include "flat.h"
 using namespace std;
 
-class Penthouse : public Flat {
+class Commercial : public Flat {
 private:
-  float terrace_area; // Площадь террасы
-  bool has_private_elevator; // Наличие частного лифта
+  float rental_price; // Оплата
+  int lease_duration; // Продолжительность аренды
 
 public:
   // Конструктор по умолчанию
-  Penthouse();
+  Commercial();
 
   // Конструктор с параметрами
-  Penthouse(float terrace_area, bool has_private_elevator);
-
-  // Конструктор 
-  Penthouse(Flat&);
+  Commercial(float rental_price, int lease_duration);
 
   // Метод для ввода данных с клавиатуры
   virtual void inputFromConsole();
@@ -34,11 +31,11 @@ public:
   // Метод для чтения данных из файла
   virtual void readFromFile(ifstream &in);
 
-  bool operator ==(Penthouse);
-  friend ostream& operator<<(ostream&, const Penthouse&);
-  friend istream& operator>>(istream&, Penthouse&);
-  friend ofstream& operator<<(ofstream&, const Penthouse&);
-  friend ifstream& operator>>(ifstream&, Penthouse&);
+  bool operator ==(Commercial);
+  friend ostream& operator<<(ostream&, const Commercial&);
+  friend istream& operator>>(istream&, Commercial&);
+  friend ofstream& operator<<(ofstream&, const Commercial&);
+  friend ifstream& operator>>(ifstream&, Commercial&);
 
 };
 

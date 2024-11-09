@@ -1,6 +1,6 @@
 # Определяем компилятор и флаги
 CC = g++
-CFLAGS = -c -Wall -g
+CFLAGS = -c -Wall -g 
 
 # Исходные файлы
 SOURCES = main.cpp flat.cpp flat_collection.cpp penthouse.cpp

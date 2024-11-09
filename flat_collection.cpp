@@ -209,6 +209,11 @@ void FlatCollection::increseMaxElemehts() {
   int new_count_max = count_max * 2;
   Flat **new_flats = new Flat*[new_count_max];
 
+  for (int i = 0; i < count_num; i++)
+  {
+    new_flats[i] = flats[i];
+  }
+  
   delete[] flats;
 
   flats = new_flats;
