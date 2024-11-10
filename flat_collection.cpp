@@ -12,6 +12,20 @@ FlatCollection::~FlatCollection() {
   delete[] flats;
 }
 
+Flat* getFlatFromType(int type) {
+  Flat* result = nullptr;
+
+  if (type == 1) {
+    result = new Flat();
+  }
+
+  if (type == 2) {
+    result = new Penthouse();
+  }
+
+  return result;
+}
+
 // Метод для ввода данных с клавиатуры
 void FlatCollection::flatsFromConsole() {
   int count_elements;
@@ -28,26 +42,15 @@ void FlatCollection::flatsFromConsole() {
     cout << "Введите тип (1 - обычная квартира, 2 - пентхаус квартира)" << endl;
     cin >> type;
 
-    Flat* new_flat = nullptr; // Указатель на базовый тип Flat
+    Flat* new_flat = getFlatFromType(type); // Указатель на базовый тип Flat
 
-    if(type == 1) {
-      Flat flat;
-      cin >> flat;
-      new_flat = &flat;
-    }
-
-    if (type == 2) {
-      Penthouse penthouse;
-      cin >> penthouse;
-      new_flat = &penthouse;
-    }
-
-    if (type != 1 && type != 2) {
+    if (new_flat == nullptr) {
       cout << "Неккорентный ввод типа (пропуск квартиры)";
       i--;
       continue;
     }
 
+    new_flat -> inputFromConsole();
     *this += new_flat;
   }
 }
@@ -62,25 +65,6 @@ void FlatCollection::removeFromConsole() {
   cin >> index;
 
   remove(index);
-}
-
-int getCountSymbol(ifstream& stream, char symbol) {
-  int count = 0;
-
-  streampos cpos = stream.tellg();
-
-  string temp;
-  getline(stream, temp);
-
-  for (char ch : temp) {
-    if (ch == symbol) {
-      ++count;
-    }
-  }
-
-  stream.seekg(cpos);
-
-  return count;
 }
 
 // Метод для чтения данных из файла
@@ -104,13 +88,6 @@ void FlatCollection::flatsFromFile() {
 
   // Ввод данных через разделитель ;
   for (int i = 0; i < count_element; ++i) {
-    int count_delimiter = getCountSymbol(file, ';');
-
-    Flat* new_flat = nullptr;
-
-    int type = 0;
-    string temp;
-    getline(file, temp, ';');
 
     // Идея заключается в том чтобы в конеце или в начале указывать тип для квартиры
     // 1 - простая квартира
@@ -118,12 +95,12 @@ void FlatCollection::flatsFromFile() {
     // 2 - пентхаус
     // 3 - коммерция
     // 4 - студия
-    if (count_delimiter == 8) {
-      Penthouse *penthouse = new Penthouse();
-      new_flat = penthouse;
-    }
+    string temp;
+    getline(file, temp, ';');
+    Flat* new_flat = getFlatFromType(atoi(temp.c_str()));
 
-    if (count_delimiter != 6 && count_delimiter != 8) {
+    // Проверка на правильный тип
+    if (new_flat == nullptr) {
       cout << "Неккорентный ввод типа (пропуск квартиры)" << endl;
       continue;
     }
