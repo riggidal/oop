@@ -62,7 +62,7 @@ void Penthouse::display() const {
 
 // Метод для записи данных в текстовый файл
 void Penthouse::writeToFile(ofstream &out) const {
-  out << rooms << ";" << total_area << ";" << living_area << ";" << balconies
+  out << "2;" << rooms << ";" << total_area << ";" << living_area << ";" << balconies
     << ";" << floor << ";" << storeys << ";" << district << ";" << terrace_area << ";" << has_private_elevator << endl;
 }
 
@@ -101,7 +101,7 @@ istream& operator>>(istream& stream, Penthouse& penthouse) {
   return stream;
 }
 ofstream& operator<<(ofstream& stream, const Penthouse& penthouse) {
-  stream << penthouse.rooms << ";" << penthouse.total_area << ";" << penthouse.living_area << ";" << penthouse.balconies
+  stream << "2;" << penthouse.rooms << ";" << penthouse.total_area << ";" << penthouse.living_area << ";" << penthouse.balconies
     << ";" << penthouse.floor << ";" << penthouse.storeys << ";" << penthouse.district
     << ";" << penthouse.terrace_area << ";" << penthouse.has_private_elevator << endl;
 

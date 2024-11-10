@@ -1,4 +1,7 @@
 #include "flat.h"
+#include <iostream>
+#include <sstream>
+#include <string>
 
 // Конструктор по умолчанию
 Flat::Flat()
@@ -46,7 +49,10 @@ void Flat::readFromFile(ifstream &in) {
   getline(in, temp, ';');
   storeys = atoi(temp.c_str());
 
-  getline(in, district, ';');
+  getline(in, temp);
+
+  stringstream ss(temp);
+  getline(ss, district, ';');
 }
 
 // Метод для вывода данных на экран
@@ -59,7 +65,7 @@ void Flat::display() const {
 
 // Метод для записи данных в текстовый файл
 void Flat::writeToFile(ofstream &out) const {
-  out << rooms << ";" << total_area << ";" << living_area << ";" << balconies
+  out << "1;" << rooms << ";" << total_area << ";" << living_area << ";" << balconies
       << ";" << floor << ";" << storeys << ";" << district << endl;
 }
 
@@ -94,7 +100,7 @@ istream& operator>>(istream& stream, Flat& flat) {
   return stream;
 }
 ofstream& operator<<(ofstream& stream, const Flat& flat) {
-  stream << flat.rooms << ";" << flat.total_area << ";" << flat.living_area << ";" << flat.balconies
+  stream << "1;" << flat.rooms << ";" << flat.total_area << ";" << flat.living_area << ";" << flat.balconies
       << ";" << flat.floor << ";" << flat.storeys << ";" << flat.district << endl;
 
 
