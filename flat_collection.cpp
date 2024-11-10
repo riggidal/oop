@@ -136,7 +136,7 @@ void FlatCollection::writeToFile() const {
 
   file << count_num << endl;
   for (int i = 0; i < count_num; ++i) {
-    file << flats[i];
+    flats[i] -> writeToFile(file);
   }
 }
 
@@ -145,7 +145,7 @@ void FlatCollection::displayAllFlatsTopFloor() {
   cout << "\nКвартиры на верхнем этаже:\n";
   for (int i = 0; i < count_num; ++i) {
     if (flats[i] -> isTopFloor()) {
-      cout << *flats[i];
+      flats[i] -> display();
     }
   }
 }
