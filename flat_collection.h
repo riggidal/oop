@@ -3,6 +3,8 @@
 
 #include "flat.h"
 #include "penthouse.h"
+#include "commercial.h"
+#include "studio.h"
 #include <fstream>
 #include <iostream>
 #include <string>

@@ -11,9 +11,9 @@ Studio::Studio(bool furnished_status, bool has_kitchen)
 // Метод для ввода данных с клавиатуры
 void Studio::inputFromConsole() {
   Flat::inputFromConsole();
-  cout << "Площадь террасы: ";
+  cout << "Наличие мебели (1 - да, 0 - нет): ";
   cin >> furnished_status;
-  cout << "Наличие частного лифта (1 - да, 0 - нет): ";
+  cout << "Наличие кухни (1 - да, 0 - нет): ";
   cin >> has_kitchen;
 }
 
@@ -50,16 +50,16 @@ void Studio::readFromFile(ifstream &in) {
 
 // Метод для вывода данных на экран
 void Studio::display() const {
-  cout << "Пентхаус -- " << "Комнат: " << rooms << ", Общая площадь: " << total_area << " кв.м"
+  cout << "Студия -- " << "Комнат: " << rooms << ", Общая площадь: " << total_area << " кв.м"
     << ", Жилая площадь: " << living_area << " кв.м"
     << ", Балконов: " << balconies << ", Этаж: " << floor << "/" << storeys
     << ", Район: " << district << ", " << (furnished_status ? "Мебелированна" : "Без мебели") 
-    << ", Частный лифт: " << (has_kitchen ? "Имеется кухня" : "Отсутствует кухня") << endl;
+    << ", " << (has_kitchen ? "Имеется кухня" : "Отсутствует кухня") << endl;
 }
 
 // Метод для записи данных в текстовый файл
 void Studio::writeToFile(ofstream &out) const {
-  out << rooms << ";" << total_area << ";" << living_area << ";" << balconies
+  out << "4;" << rooms << ";" << total_area << ";" << living_area << ";" << balconies
     << ";" << floor << ";" << storeys << ";" << district << ";" << furnished_status << ";" << has_kitchen << endl;
 }
 
@@ -76,11 +76,11 @@ bool Studio::operator ==(Studio other) {
 }
 
 ostream& operator<<(ostream& stream, const Studio& studio) {
-  stream << "Пентхаус -- " << "Комнат: " << studio.rooms << ", Общая площадь: " << studio.total_area << " кв.м"
+  stream << "Студия -- " << "Комнат: " << studio.rooms << ", Общая площадь: " << studio.total_area << " кв.м"
     << ", Жилая площадь: " << studio.living_area << " кв.м"
     << ", Балконов: " << studio.balconies << ", Этаж: " << studio.floor << "/" << studio.storeys
     << ", Район: " << studio.district << ", " << (studio.furnished_status ? "Мебелированна" : "Без мебели") 
-    << ", Частный лифт: " << (studio.has_kitchen ? "Имеется кухня" : "Отсутствует кухня") << endl;
+    << ", " << (studio.has_kitchen ? "Имеется кухня" : "Отсутствует кухня") << endl;
 
   return stream;
 }
@@ -98,7 +98,7 @@ istream& operator>>(istream& stream, Studio& studio) {
   return stream;
 }
 ofstream& operator<<(ofstream& stream, const Studio& studio) {
-  stream << studio.rooms << ";" << studio.total_area << ";" << studio.living_area << ";" << studio.balconies
+  stream << "4;" << studio.rooms << ";" << studio.total_area << ";" << studio.living_area << ";" << studio.balconies
     << ";" << studio.floor << ";" << studio.storeys << ";" << studio.district
     << ";" << studio.furnished_status << ";" << studio.has_kitchen << endl;
 

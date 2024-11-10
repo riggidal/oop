@@ -23,6 +23,14 @@ Flat* getFlatFromType(int type) {
     result = new Penthouse();
   }
 
+  if (type == 3) {
+    result = new Commercial();
+  }
+
+  if (type == 4) {
+    result = new Studio();
+  }
+
   return result;
 }
 
